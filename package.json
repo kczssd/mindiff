@@ -1,0 +1,13 @@
+{
+  "scripts":{
+    "dev": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "devDependencies": {
+    "snowpack": "^3.5.9"
+  },
+  "name": "diff",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
