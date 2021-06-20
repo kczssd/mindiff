@@ -4,8 +4,25 @@ export default function(oldVnode,newVnode){
     if(oldVnode.sel===""||!oldVnode.sel){
         oldVnode = vnode(oldVnode.tagName.toLowerCase(),{},[],undefined,oldVnode)
     }
-    if(oldVnode.key&&oldVnode.key === newVnode.key&&oldVnode.sel===newVnode.sel){
-        // TODO精细比较
+    if(oldVnode.key === newVnode.key&&oldVnode.sel===newVnode.sel){
+        if(oldVnode===newVnode){
+            return;//完全一致
+        }
+        if(newVnode.text!==undefined&&(newVnode.children===undefined||newVnode.children.length===0)){
+            if(newVnode.text!==oldVnode.text){
+                oldVnode.elm.innerText = newVnode.text;
+            }
+        }else{
+            if(oldVnode.children===undefined||oldVnode.children.length===0){
+                oldVnode.elm.innerText=null;
+                for(let child in newVnode.children){
+                    oldVnode.elm.appendChild(newElement(newVnode.children[child]))
+                }
+            }else{
+                // TODO 精细化比较
+            }
+
+        }
     }else{
         let newRealNode = newElement(newVnode);
         console.log(newRealNode,oldVnode.elm);
