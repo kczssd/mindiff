@@ -1,37 +1,6 @@
 # diff算法主要过程
 
-```flow
-st=>start: patch
-
-cond=>condition: oldVnode是realDom?
-op1=>operation: 转化为虚拟Dom
-cond2=>condition: 是否是同一个Node?
-op2=>operation: 删除&添加Node
-cond3=>condition: 地址是否相同?
-cond4=>condition: newVnode是否有属性text?
-op3=>operation: 改变elm.innerText
-cond5=>condition: oldVnode是否有children?
-op4=>operation: 删除oldVnode.text&添加children
-op5=>operation: 精细化比较
-cond6=>condition: 相同?
-e=>end: 啥也不做
-e2=>end: 啥也不做
-
-
-st->cond
-cond(yes)->op1->cond2
-cond(no)->cond2
-cond2(yes)->cond3
-cond2(no)->op2
-cond3(yes)->e
-cond3(no)->cond4
-cond4(yes)->cond6
-cond4(no)->cond5
-cond5(no)->op4
-cond5(yes)->op5
-cond6(yes)->e2
-cond6(no)->op3
-```
+![image-20210621154339347](./main.png)
 
 ### 精细化比较
 
