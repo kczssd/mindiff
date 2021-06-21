@@ -1,10 +1,23 @@
-import h from './h.js'
-import patch from './patch.js'
+import h from "./h.js";
+import patch from "./patch.js";
 
 const container = document.querySelector("#container");
-let virtualNode = h('ol', {}, "sdf")
+let virtualNode = h("ol", {}, [
+    h('li',{key:'A'},"A"),
+    h('li',{key:'B'},"B"),
+    h('li',{key:'C'},"C"),
+    h('li',{key:'D'},"D")
+
+]);
 patch(container, virtualNode);
-let virtualNode2 = h('ol', {}, [h('li', {}, h('ul', {}, [h('li', {}, '1'), h('li', {}, '2'), h('li', {}, '3')])), h('li', {}, '二'), h('li', {}, '三')])
+let virtualNode2 = h("ol", {}, [
+  h('li',{key:'A'},"A"),
+  h('li',{key:'B'},"B"),
+  h('li',{key:'Q'},"Q"),
+  h('li',{key:'C'},"C"),
+  h('li',{key:'E'},"E"),
+  h('li',{key:'D'},"D")
+]);
 setTimeout(() => {
-    patch(virtualNode, virtualNode2);
-}, 2000)
+  patch(virtualNode, virtualNode2);
+}, 2000);

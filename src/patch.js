@@ -1,10 +1,12 @@
 import h from './h.js';
 import vnode from './vnode.js'
+import refinement,{sameVnode} from './refinement.js'
 export default function(oldVnode,newVnode){
     if(oldVnode.sel===""||!oldVnode.sel){
         oldVnode = vnode(oldVnode.tagName.toLowerCase(),{},[],undefined,oldVnode)
     }
-    if(oldVnode.key === newVnode.key&&oldVnode.sel===newVnode.sel){
+    // console.log(oldVnode,newVnode);
+    if(sameVnode(oldVnode,newVnode)){
         if(oldVnode===newVnode){
             return;//完全一致
         }
@@ -20,17 +22,17 @@ export default function(oldVnode,newVnode){
                 }
             }else{
                 // TODO 精细化比较
+                refinement(oldVnode.elm,oldVnode.children,newVnode.children)
             }
-
         }
     }else{
         let newRealNode = newElement(newVnode);
-        console.log(newRealNode,oldVnode.elm);
+        // console.log(newRealNode,oldVnode.elm);
         oldVnode.elm.parentNode.insertBefore(newRealNode,oldVnode.elm);
         oldVnode.elm.parentNode.removeChild(oldVnode.elm);
     }
 }
-function newElement(vnode){
+export function newElement(vnode){
     let realDom = document.createElement(vnode.sel);
     if(vnode.text&&(!vnode.children||vnode.children.length>0)){
         realDom.innerText = vnode.text;
