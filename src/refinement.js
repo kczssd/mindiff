@@ -1,6 +1,6 @@
 import patch,{newElement} from './patch.js'
 
-let keyMap=null;//TODO Map()
+let keyMap=new Map();
 
 export function sameVnode(a,b){
     return a.data.key===b.data.key&&a.sel===b.sel;
@@ -46,17 +46,13 @@ export default function(parentNode,oldCh,newCh){
                 oldEndDom = oldCh[--oldEnd];
                 break;
             default:
-                if(!keyMap){
-                    keyMap={};
-                    for(let i=oldFront;i<=oldEnd;i++){
-                        const key = oldCh[i].data.key;
-                        if(key!==undefined){
-                            keyMap[key] = i;
-                        }
+                for(let i=oldFront;i<=oldEnd;i++){
+                    const key = oldCh[i].data.key;
+                    if(key!==undefined){
+                        keyMap.set(key,i);
                     }
                 }
-                const curr = keyMap[newFrontDom.data.key];
-                console.log(curr);
+                const curr = keyMap.get(newFrontDom.data.key);
                 if(curr==undefined){
                     // add
                     parentNode.insertBefore(newElement(newFrontDom),oldFrontDom.elm)

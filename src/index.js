@@ -11,12 +11,7 @@ let virtualNode = h("ol", {}, [
 ]);
 patch(container, virtualNode);
 let virtualNode2 = h("ol", {}, [
-  h('li',{key:'A'},"A"),
-  h('li',{key:'B'},"B"),
-  h('li',{key:'Q'},"Q"),
   h('li',{key:'C'},"C"),
-  h('li',{key:'E'},"E"),
-  h('li',{key:'D'},"D")
 ]);
 setTimeout(() => {
   patch(virtualNode, virtualNode2);
